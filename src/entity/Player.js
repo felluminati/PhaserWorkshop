@@ -1,8 +1,8 @@
 import 'phaser';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'josh');
+  constructor(scene, x, y, spriteKey) {
+    super(scene, x, y, spriteKey);
     // Store reference of scene passed to constructor
     this.scene = scene;
     // Add player to scene and enable physics

@@ -1,8 +1,8 @@
 import 'phaser';
 
 export default class Gun extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'gun');
+  constructor(scene, x, y, spriteKey) {
+    super(scene, x, y, spriteKey);
     // Store reference of scene passed to constructor
     this.scene = scene;
     // Keep track of when the gun was last fired

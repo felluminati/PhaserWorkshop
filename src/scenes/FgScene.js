@@ -35,9 +35,9 @@ export default class FgScene extends Phaser.Scene {
     // Create the ground and lasers
     this.createGroups();
     // Brandon. The enemy.
-    this.enemy = new enemy(this, 600, 400);
+    this.enemy = new enemy(this, 600, 400, 'brandon');
     // Josh. The player.
-    this.player = new player(this, 20, 400);
+    this.player = new player(this, 20, 400, 'josh');
     // Gun
     this.gun = new gun(this, 300, 400, 'gun');
     // Create player's animations
@@ -68,10 +68,12 @@ export default class FgScene extends Phaser.Scene {
     );
     this.enemy.update(this.screamSound);
   }
+
   // Make the ground
   createGround(x, y) {
-    let ground = this.groundGroup.create(x, y, 'ground');
+    this.groundGroup.create(x, y, 'ground');
   }
+
   // Make all the groups
   createGroups() {
     this.groundGroup = this.physics.add.staticGroup({ classType: Ground });
@@ -90,11 +92,13 @@ export default class FgScene extends Phaser.Scene {
     gun.disableBody(true, true);
     this.player.armed = true;
   }
+
   // Callback fn
   hit(enemy, laser) {
     laser.setActive(false);
     laser.setVisible(false);
   }
+
   // Make collisions
   createCollisions() {
     this.physics.add.collider(this.gun, this.groundGroup);
@@ -113,15 +117,17 @@ export default class FgScene extends Phaser.Scene {
     // create a checker to see if the laser hits the enemy
     this.physics.add.overlap(this.enemy, this.lasers, this.hit, null, this);
   }
+
   // Callback fn
   addLaser(x, y, left) {
     let laser = this.lasers.getFirstDead();
     if (!laser) {
-      laser = new Laser(this, 0, 0);
+      laser = new Laser(this, 0, 0, 'laserBolt');
       this.lasers.add(laser);
     }
     laser.fire(x, y, left);
   }
+
   // Player animations
   createAnimations() {
     this.anims.create({

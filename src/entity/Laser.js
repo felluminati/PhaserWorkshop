@@ -1,8 +1,8 @@
 import 'phaser';
 
 export default class Laser extends Phaser.GameObjects.Image {
-  constructor(scene, x, y) {
-    super(scene, x, y, 'laserBolt');
+  constructor(scene, x, y, spriteKey) {
+    super(scene, x, y, spriteKey);
     // Store reference of scene passed to constructor
     this.scene = scene;
     // Set the lifespan of a laserbolt
