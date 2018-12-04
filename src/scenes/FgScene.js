@@ -11,6 +11,7 @@ export default class FgScene extends Phaser.Scene {
     this.hit = this.hit.bind(this)
     this.collectGun = this.collectGun.bind(this)
     this.addLaser = this.addLaser.bind(this)
+    this.brandon = new brandon(this, 600, 400)
   }
 
   preload() {
@@ -23,13 +24,14 @@ export default class FgScene extends Phaser.Scene {
     this.load.image('gun', 'assets/sprites/gun.png');
     this.load.image('brandon', 'assets/sprites/brandon.png');
     this.load.image('laserBolt', 'assets/sprites/laserBolt.png');
+    // this.brandon.preload()
   }
 
   create() {
     // Create the ground and lasers
     this.createGroups()
     // Brandon. The enemy.
-    this.brandon = new brandon(this, 600, 400)
+
     // Josh. The player.
     this.player = new player(this, 20, 400)
     // Gun
