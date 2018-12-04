@@ -8,8 +8,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Add player to scene and enable physics
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    // Scale player
-    this.setScale(0.25);
     // Armed?
     this.armed = false;
     // Is the player facing left?

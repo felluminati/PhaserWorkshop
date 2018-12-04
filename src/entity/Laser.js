@@ -12,8 +12,6 @@ export default class Laser extends Phaser.GameObjects.Image {
     // Add laser to scene and enable physics
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    // Scale laser
-    this.setScale(0.25);
   }
 
   // Check which direction the player is facing and move the laserbolt in that direction as long as it lives

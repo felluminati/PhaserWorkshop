@@ -8,8 +8,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     // Add enemy to scene and enable physics
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
-    // Scale enemy
-    this.setScale(0.25);
+
     // Turn him around to face player
     this.flipX = !this.flipX;
     this.playedSound = false;

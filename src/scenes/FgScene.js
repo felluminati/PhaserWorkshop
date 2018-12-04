@@ -34,12 +34,16 @@ export default class FgScene extends Phaser.Scene {
   create() {
     // Create the ground and lasers
     this.createGroups();
-    // Brandon. The enemy.
-    this.enemy = new enemy(this, 600, 400, 'brandon');
-    // Josh. The player.
-    this.player = new player(this, 20, 400, 'josh');
-    // Gun
-    this.gun = new gun(this, 300, 400, 'gun');
+
+    // Brandon. The enemy. Our sprite is a little large, so we'll scale it down
+    this.enemy = new enemy(this, 600, 400, 'brandon').setScale(0.25);
+
+    // Josh. The player. Our sprite is a little large, so we'll scale it down
+    this.player = new player(this, 20, 400, 'josh').setScale(0.25);
+
+    // Gun. Our sprite is a little large, so we'll scale it down
+    this.gun = new gun(this, 300, 400, 'gun').setScale(0.25);
+
     // Create player's animations
     this.createAnimations();
 
@@ -103,8 +107,10 @@ export default class FgScene extends Phaser.Scene {
   createCollisions() {
     this.physics.add.collider(this.gun, this.groundGroup);
     this.physics.add.collider(this.player, this.groundGroup);
-    this.physics.add.collider(this.player, this.enemy);
+    // Important to put the enemy-ground collision before the player-enemy
+    // collision so enemy bounces slightly when you jump on his head
     this.physics.add.collider(this.enemy, this.groundGroup);
+    this.physics.add.collider(this.player, this.enemy);
     this.physics.add.collider(this.lasers, this.enemy);
     // create a checker to see if the player collides with the gun
     this.physics.add.overlap(
@@ -122,7 +128,8 @@ export default class FgScene extends Phaser.Scene {
   addLaser(x, y, left) {
     let laser = this.lasers.getFirstDead();
     if (!laser) {
-      laser = new Laser(this, 0, 0, 'laserBolt');
+      // Create a laser bullet and scale the sprite down
+      laser = new Laser(this, 0, 0, 'laserBolt').setScale(0.25);
       this.lasers.add(laser);
     }
     laser.fire(x, y, left);
