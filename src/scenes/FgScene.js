@@ -1,5 +1,5 @@
 import player from '../entity/Player';
-import brandon from '../entity/Brandon';
+import enemy from '../entity/Enemy';
 import gun from '../entity/Gun';
 import Laser from '../entity/Laser';
 import Ground from '../entity/Ground';
@@ -35,7 +35,7 @@ export default class FgScene extends Phaser.Scene {
     // Create the ground and lasers
     this.createGroups();
     // Brandon. The enemy.
-    this.brandon = new brandon(this, 600, 400);
+    this.enemy = new enemy(this, 600, 400);
     // Josh. The player.
     this.player = new player(this, 20, 400);
     // Gun
@@ -66,7 +66,7 @@ export default class FgScene extends Phaser.Scene {
       this.addLaser,
       this.laserSound
     );
-    this.brandon.update(this.screamSound);
+    this.enemy.update(this.screamSound);
   }
   // Make the ground
   createGround(x, y) {
@@ -91,7 +91,7 @@ export default class FgScene extends Phaser.Scene {
     this.player.armed = true;
   }
   // Callback fn
-  hit(brandon, laser) {
+  hit(enemy, laser) {
     laser.setActive(false);
     laser.setVisible(false);
   }
@@ -99,9 +99,9 @@ export default class FgScene extends Phaser.Scene {
   createCollisions() {
     this.physics.add.collider(this.gun, this.groundGroup);
     this.physics.add.collider(this.player, this.groundGroup);
-    this.physics.add.collider(this.player, this.brandon);
-    this.physics.add.collider(this.brandon, this.groundGroup);
-    this.physics.add.collider(this.lasers, this.brandon);
+    this.physics.add.collider(this.player, this.enemy);
+    this.physics.add.collider(this.enemy, this.groundGroup);
+    this.physics.add.collider(this.lasers, this.enemy);
     // create a checker to see if the player collides with the gun
     this.physics.add.overlap(
       this.player,
@@ -110,8 +110,8 @@ export default class FgScene extends Phaser.Scene {
       null,
       this
     );
-    // create a checker to see if the laser hits brandon
-    this.physics.add.overlap(this.brandon, this.lasers, this.hit, null, this);
+    // create a checker to see if the laser hits the enemy
+    this.physics.add.overlap(this.enemy, this.lasers, this.hit, null, this);
   }
   // Callback fn
   addLaser(x, y, left) {
