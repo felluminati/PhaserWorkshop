@@ -126,10 +126,12 @@ export default class FgScene extends Phaser.Scene {
 
   // Callback fn
   addLaser(x, y, left) {
+    // Get the first available laser object that has been set to inactive
     let laser = this.lasers.getFirstDead();
+    // Check if we can reuse an inactive laser in our pool of lasers
     if (!laser) {
       // Create a laser bullet and scale the sprite down
-      laser = new Laser(this, 0, 0, 'laserBolt').setScale(0.25);
+      laser = new Laser(this, 0, 0, 'laserBolt', left).setScale(0.25);
       this.lasers.add(laser);
     }
     laser.fire(x, y, left);
