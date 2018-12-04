@@ -10,9 +10,6 @@ export default {
       debug: false,
     },
   },
-  // Specify the scene(s) up front. Can also dynamically add scenes if desired.
-  // Only the first scene in the array will be automatically run
-  // scene: [MainScene, BgScene, FgScene],
   // This option is to turn off the default behavior of images being automatically sharpened.
   // Since we're using pixel art, we want every beautiful pixel untouched!
   render: {
