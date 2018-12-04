@@ -13,12 +13,6 @@ export default class Gun extends Phaser.Physics.Arcade.Sprite {
     // Scale gun
     this.setScale(0.25);
   }
-
-  // Load gun sprite into game
-  preload() {
-    this.load.sprite('gun', 'assets/sprites/gun.png');
-  }
-
   // Check if the shoot button is pushed and how long its been
   update(time, player, cursors, callback, laserSound) {
     if (cursors.space.isDown && time > this.lastFired) {

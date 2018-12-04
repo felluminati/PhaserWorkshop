@@ -15,14 +15,6 @@ export default class Brandon extends Phaser.Physics.Arcade.Sprite {
     this.playedSound = false;
   }
 
-  // Load his sprite into the game
-  preload() {
-    this.load.spritesheet('brandon', 'assets/sprites/brandon.png', {
-      frameWidth: 340,
-      frameHeight: 460,
-    });
-  }
-
   update(screamSound) {
     if (this.y > 600 && !this.playedSound) {
       this.playedSound = true;

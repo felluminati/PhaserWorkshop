@@ -9,9 +9,4 @@ export default class Ground extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
   }
-
-  // Load ground sprite into the game
-  preload() {
-    this.load.sprite('ground', 'assets/sprites/ground.png');
-  }
 }

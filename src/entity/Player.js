@@ -17,15 +17,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     // Player can't walk off camera
     this.setCollideWorldBounds(true);
   }
-
-  // Load our player spritesheet into game
-  preload() {
-    this.load.spritesheet('josh', 'assets/spriteSheets/josh.png', {
-      frameWidth: 340,
-      frameHeight: 460,
-    });
-  }
-
   // Check which controller button is being pushed and execute movement & animation
   update(cursors, jumpSound) {
     if (cursors.left.isDown) {
