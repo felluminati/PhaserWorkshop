@@ -89,6 +89,7 @@ export default class FgScene extends Phaser.Scene {
       classType: Laser,
       maxSize: 40,
       runChildUpdate: true,
+      allowGravity: false
     });
   }
 
