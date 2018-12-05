@@ -140,7 +140,13 @@ export default class FgScene extends Phaser.Scene {
     // Check if we can reuse an inactive laser in our pool of lasers
     if (!laser) {
       // Create a laser bullet and scale the sprite down
-      laser = new Laser(this, 0, 0, 'laserBolt').setScale(0.25);
+      laser = new Laser(
+        this,
+        laserX,
+        laserY,
+        'laserBolt',
+        this.player.facingLeft
+      ).setScale(0.25);
       this.lasers.add(laser);
     }
     laser.reset(laserX, laserY, this.player.facingLeft);
