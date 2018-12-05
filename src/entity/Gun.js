@@ -9,7 +9,7 @@ export default class Gun extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
 
-    // Set the firing delay
+    // Set the firing delay (ms)
     this.fireDelay = 100;
     // Keep track of when the gun was last fired
     this.lastFired = 0;
@@ -20,7 +20,7 @@ export default class Gun extends Phaser.Physics.Arcade.Sprite {
     if (cursors.space.isDown && time > this.lastFired) {
       if (player.armed) {
         laserSound.play();
-        fireLaserFn(player.x, player.y, player.left);
+        fireLaserFn()
         this.lastFired = time + this.fireDelay;
       }
     }

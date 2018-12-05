@@ -2,7 +2,7 @@ import 'phaser';
 
 // Phaser.GameObjects.Image
 export default class Laser extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, spriteKey) {
+  constructor(scene, x, y, spriteKey, facingLeft) {
     super(scene, x, y, spriteKey);
     // Store reference of scene passed to constructor
     this.scene = scene;
@@ -10,19 +10,21 @@ export default class Laser extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
 
-    // Set the lifespan of a laserbolt (in ms)
-    this.lifespan = 0;
     // Set how fast the laser travels (pixels/ms)
     this.speed = Phaser.Math.GetSpeed(800, 1); // (distance in pixels, time (ms))
+
+    // Our reset function will take care of initializing the remaining fields
+    this.reset(x, y, 0, 0, facingLeft)
   }
 
   // Check which direction the player is facing and move the laserbolt in that direction as long as it lives
-  update(direction, delta) {
+  update(time, delta) {
     this.lifespan -= delta;
-    if (this.direction === 'right') {
-      this.x += this.speed * delta;
+    const moveDistance = this.speed * delta
+    if (this.facingLeft) {
+      this.x -= moveDistance
     } else {
-      this.x -= this.speed * delta;
+      this.x += moveDistance
     }
     // If this laser has run out of lifespan, we "kill it" by deactivating it.
     // We can then reuse this laser object
@@ -33,18 +35,20 @@ export default class Laser extends Phaser.Physics.Arcade.Sprite {
   }
 
   // Reset this laserbolt to start at a particular location and
-  // fire in a particular direction
-  reset(x, y, left) {
+  // fire in a particular direction. Anchor the starting point at
+  // at the player's position plus an offset so that it looks like
+  // it's starting from the gun
+  reset(anchorX, anchorY, offsetX, offsetY, facingLeft) {
     this.setActive(true);
     this.setVisible(true);
+    // Important to not apply gravity to the laser bolt!
     this.body.allowGravity = false;
     this.lifespan = 900;
-    if (!left) {
-      this.setPosition(x + 56, y + 14);
-      this.direction = 'right';
+    this.facingLeft = facingLeft
+    if (facingLeft) {
+      this.setPosition(anchorX - offsetX, anchorY + offsetY);
     } else {
-      this.setPosition(x - 56, y + 14);
-      this.direction = 'left';
+      this.setPosition(anchorX + offsetX, anchorY + offsetY);
     }
   }
 }
