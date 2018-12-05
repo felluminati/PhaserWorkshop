@@ -14,7 +14,7 @@ export default class Laser extends Phaser.Physics.Arcade.Sprite {
     this.speed = Phaser.Math.GetSpeed(800, 1); // (distance in pixels, time (ms))
 
     // Our reset function will take care of initializing the remaining fields
-    this.reset(x, y, 0, 0, facingLeft)
+    this.reset(x, y, facingLeft)
   }
 
   // Check which direction the player is facing and move the laserbolt in that direction as long as it lives
@@ -35,20 +35,14 @@ export default class Laser extends Phaser.Physics.Arcade.Sprite {
   }
 
   // Reset this laserbolt to start at a particular location and
-  // fire in a particular direction. Anchor the starting point at
-  // at the player's position plus an offset so that it looks like
-  // it's starting from the gun
-  reset(anchorX, anchorY, offsetX, offsetY, facingLeft) {
+  // fire in a particular direction.
+  reset(x, y, facingLeft) {
     this.setActive(true);
     this.setVisible(true);
     // Important to not apply gravity to the laser bolt!
     this.body.allowGravity = false;
     this.lifespan = 900;
     this.facingLeft = facingLeft
-    if (facingLeft) {
-      this.setPosition(anchorX - offsetX, anchorY + offsetY);
-    } else {
-      this.setPosition(anchorX + offsetX, anchorY + offsetY);
-    }
+    this.setPosition(x, y)
   }
 }

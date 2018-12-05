@@ -131,6 +131,10 @@ export default class FgScene extends Phaser.Scene {
     // the laser starts from the gun in the player's hand
     const offsetX = 56;
     const offsetY = 14;
+    const laserX =
+      this.player.x + (this.player.facingLeft ? -offsetX : offsetX);
+    const laserY = this.player.y + offsetY;
+
     // Get the first available laser object that has been set to inactive
     let laser = this.lasers.getFirstDead();
     // Check if we can reuse an inactive laser in our pool of lasers
@@ -139,13 +143,7 @@ export default class FgScene extends Phaser.Scene {
       laser = new Laser(this, 0, 0, 'laserBolt').setScale(0.25);
       this.lasers.add(laser);
     }
-    laser.reset(
-      this.player.x,
-      this.player.y,
-      offsetX,
-      offsetY,
-      this.player.facingLeft
-    );
+    laser.reset(laserX, laserY, this.player.facingLeft);
   }
 
   // Player animations
