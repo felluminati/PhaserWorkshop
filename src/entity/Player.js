@@ -19,7 +19,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   update(cursors, jumpSound) {
     this.updateMovement(cursors)
     this.updateJump(cursors, jumpSound)
-    this.updateFall(cursors)
+    this.updateInAir(cursors)
   }
 
   updateMovement(cursors) {
@@ -64,7 +64,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  updateFall(cursors) {
+  updateInAir(cursors) {
     if (!this.body.touching.down) {
       this.anims.play('jump');
     }
