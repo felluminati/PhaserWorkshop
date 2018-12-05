@@ -8,10 +8,10 @@ export default class FgScene extends Phaser.Scene {
   constructor() {
     super('FgScene');
 
-    // Bind callback functions to the object context
+    // Lexically bind callback functions
     this.hit = this.hit.bind(this);
     this.collectGun = this.collectGun.bind(this);
-    this.addLaser = this.addLaser.bind(this);
+    this.fireLaser = this.fireLaser.bind(this);
   }
 
   preload() {
@@ -50,10 +50,11 @@ export default class FgScene extends Phaser.Scene {
     // Create sounds
     this.jumpSound = this.sound.add('jump');
     this.laserSound = this.sound.add('laser');
+    // The laser sound is a bit too loud so we're going to turn it down
     this.laserSound.volume = 0.5;
     this.screamSound = this.sound.add('scream');
 
-    // Assign the curors
+    // Assign the cursors
     this.cursors = this.input.keyboard.createCursorKeys();
     // Create collions for all entities
     this.createCollisions();
@@ -67,7 +68,7 @@ export default class FgScene extends Phaser.Scene {
       time,
       this.player,
       this.cursors,
-      this.addLaser,
+      this.fireLaser,
       this.laserSound
     );
     this.enemy.update(this.screamSound);
@@ -125,7 +126,7 @@ export default class FgScene extends Phaser.Scene {
   }
 
   // Callback fn
-  addLaser(x, y, left) {
+  fireLaser(x, y, left) {
     // Get the first available laser object that has been set to inactive
     let laser = this.lasers.getFirstDead();
     // Check if we can reuse an inactive laser in our pool of lasers
@@ -134,7 +135,7 @@ export default class FgScene extends Phaser.Scene {
       laser = new Laser(this, 0, 0, 'laserBolt', left).setScale(0.25);
       this.lasers.add(laser);
     }
-    laser.fire(x, y, left);
+    laser.reset(x, y, left);
   }
 
   // Player animations

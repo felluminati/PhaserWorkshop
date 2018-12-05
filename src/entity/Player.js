@@ -17,6 +17,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
   // Check which controller button is being pushed and execute movement & animation
   update(cursors, jumpSound) {
+    this.updateMovement(cursors)
+    this.updateJump(cursors, jumpSound)
+    this.updateFall(cursors)
+  }
+
+  updateMovement(cursors) {
+    // Move left
     if (cursors.left.isDown) {
       if (!this.left) {
         this.flipX = !this.flipX;
@@ -26,7 +33,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.body.touching.down) {
         this.anims.play('run', true);
       }
-    } else if (cursors.right.isDown) {
+    }
+    // Move right
+    else if (cursors.right.isDown) {
       if (this.left) {
         this.flipX = !this.flipX;
         this.left = false;
@@ -36,7 +45,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       if (this.body.touching.down) {
         this.anims.play('run', true);
       }
-    } else {
+    }
+    // Neutral (no movement)
+    else {
       this.setVelocityX(0);
       if (!this.armed) {
         this.anims.play('idleUnarmed');
@@ -44,12 +55,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('idleArmed');
       }
     }
+  }
+
+  updateJump(cursors, jumpSound) {
     if (cursors.up.isDown && this.body.touching.down) {
       this.setVelocityY(-800);
       jumpSound.play();
     }
+  }
+
+  updateFall(cursors) {
     if (!this.body.touching.down) {
       this.anims.play('jump');
     }
   }
+
 }
