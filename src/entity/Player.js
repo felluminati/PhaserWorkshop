@@ -31,7 +31,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       }
       this.setVelocityX(-360);
       if (this.body.touching.down) {
-        this.anims.play('run', true);
+        this.play('run', true);
       }
     }
     // Move right
@@ -43,16 +43,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(360);
 
       if (this.body.touching.down) {
-        this.anims.play('run', true);
+        this.play('run', true);
       }
     }
     // Neutral (no movement)
     else {
       this.setVelocityX(0);
       if (!this.armed) {
-        this.anims.play('idleUnarmed');
+        this.play('idleUnarmed');
       } else {
-        this.anims.play('idleArmed');
+        this.play('idleArmed');
       }
     }
   }
@@ -66,7 +66,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   updateInAir() {
     if (!this.body.touching.down) {
-      this.anims.play('jump');
+      this.play('jump');
     }
   }
 
